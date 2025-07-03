@@ -1,0 +1,304 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Background */
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #f4f7fc;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Container */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header Section */
+h2, h3 {
+    color: #333;
+}
+
+/* Home Section */
+.home-section {
+    background-image: url('../assets/images/counterbg.jpg'); /* Updated path to your image */
+
+
+    background-size: cover; /* Ensures the image covers the entire section */
+    background-position: center center; /* Centers the image */
+    padding: 100px 0;
+    color: #131111;
+    text-align: center;
+}
+
+.home-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.home-content h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.home-content p {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
+.home-content .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.home-content .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+
+/* Booking Section */
+.booking-section {
+    background-color: #ffffff;
+    padding: 60px 30px;
+    margin-top: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.booking-section h1 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 36px;
+    font-weight: 600;
+}
+
+.booking-section .btn-primary {
+    background-color: #5cb85c;
+    color: white;
+    padding: 12px 40px;
+    font-size: 18px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+.booking-section .btn-primary:hover {
+    background-color: #4cae4c;
+}
+
+/* About Section */
+.about-section {
+    padding: 80px 0;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.about-section h2 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.about-section p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #555;
+}
+
+/* Services Section */
+.services-section {
+    padding: 80px 0;
+    background-color: #fff;
+    text-align: center;
+}
+
+.services-section h2 {
+    font-size: 36px;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.services-section .row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.services-section .col-md-4 {
+    margin-bottom: 30px;
+}
+
+.services-section h3 {
+    font-size: 28px;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.services-section p {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 80px 0;
+    background-color: #1d68f3;
+    color: #fff;
+    text-align: center;
+}
+
+.contact-section h2 {
+    font-size: 36px;
+    margin-bottom: 30px;
+}
+
+.contact-section .row {
+    display: flex;
+    justify-content: space-around;
+}
+
+.contact-section h3 {
+    color: aliceblue;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.contact-section p {
+    color: aliceblue;
+}
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.footer p {
+    font-size: 16px;
+    color: #ccc;
+}
+
+/* Form Controls */
+.form-control {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #5cb85c;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .home-section {
+        padding: 60px 0;
+    }
+    .home-content h1 {
+        font-size: 32px;
+    }
+    .home-content p {
+        font-size: 18px;
+    }
+    .about-section h2, .services-section h2, .contact-section h2 {
+        font-size: 28px;
+    }
+    .booking-section {
+        padding: 40px 20px;
+    }
+    .booking-section .btn-primary {
+        padding: 10px 30px;
+        font-size: 16px;
+    }
+    #chatbot-icon {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #007bff;
+        color: white;
+        padding: 15px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+    }
+
+    /* Chat window styling */
+    #chat-window {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        width: 300px;
+        height: 400px;
+        background-color: white;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        display: none; /* Hidden by default */
+        flex-direction: column;
+        z-index: 1000;
+    }
+
+    /* Chat header */
+    #chat-header {
+        background-color: #007bff;
+        color: white;
+        padding: 10px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    /* Chat body */
+    #chat-body {
+        flex: 1;
+        padding: 10px;
+        overflow-y: auto;
+    }
+
+    /* Chat input area */
+    #chat-input-area {
+        display: flex;
+        border-top: 1px solid #ccc;
+    }
+
+    #chat-input {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-bottom-left-radius: 10px;
+    }
+
+    #send-button {
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-bottom-right-radius: 10px;
+        cursor: pointer;
+    }
+}

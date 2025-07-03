@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Success</title>
+    <style>
+        .container {
+            max-width: 500px;
+            margin: 100px auto;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+        .container h2 {
+            color: #28a745;
+        }
+        button { padding: 10px 20px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #45a049; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Appointment Confirmed!</h2>
+        <p>Your appointment with <strong>{{ appointment_info.counselor_name }}</strong></p>
+        <p>on <strong>{{ appointment_info.date }}</strong> at <strong>{{ appointment_info.time }}</strong> has been booked.</p>
+      
+        <br>
+        
+        <a href="{% url 'booking' %}">Book Another</a>
+    </div>
+</body>
+</html>

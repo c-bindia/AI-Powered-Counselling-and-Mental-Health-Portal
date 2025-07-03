@@ -1,0 +1,108 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: #fff;
+            height: 100vh;
+            padding: 20px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 20px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        .sidebar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            display: block;
+            padding: 12px;
+            margin: 5px 0;
+            border-radius: 5px;
+            transition: 0.3s ease-in-out;
+        }
+
+        .sidebar a:hover {
+            background: #34495e;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            padding: 12px;
+            text-align: center;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+
+        .content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+            .content {
+                margin-left: 200px;
+            }
+        }
+    </style>
+
+    <script src="{% static 'assets/js/jquery-1.11.2.min.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div>
+            <h3>Counselor || {{ user.username }}</h3>
+            <a href="{% url 'dashboard2' %}">🏠 Home</a>
+            <a href="{% url 'view_appointments' %}">📅 View Appointments</a>
+            <a href="{% url 'view_feedback' %}">💬 View Feedback</a> <!-- Added Feedback Option -->
+        </div>
+        <a href="{% url 'logout' %}" class="logout-btn">🚪 Logout</a>
+    </div>
+    
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

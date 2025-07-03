@@ -1,0 +1,184 @@
+{% load tz %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Book Appointment</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        form {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        select,
+        input[type="date"],
+        textarea {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .slot {
+            padding: 8px 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 5px 5px 10px 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .slot:hover {
+            background-color: #e8f5e9;
+        }
+
+        .selected {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+
+        #time-slots h4 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: green;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form method="post">
+        <h2>Book an Appointment</h2>
+        {% csrf_token %}
+
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <label for="counselor">Select Counselor:</label>
+        <select name="counselor" id="counselor" required>
+            <option value="">--Select--</option>
+            {% for counselor in counselors %}
+                <option value="{{ counselor.id }}">{{ counselor.username }}</option>
+            {% endfor %}
+        </select>
+
+        <div id="calendar-section" style="display:none;">
+            <label for="appointment-date">Select Date:</label>
+            <input type="date" id="appointment-date" name="date" min="{% now 'Y-m-d' %}" required>
+        </div>
+
+        <div id="time-slots" style="display:none;">
+            <h4>Available Time Slots:</h4>
+            <div id="slots-list"></div>
+            <input type="hidden" name="time" id="selected-time" required>
+        </div>
+
+        <div id="notes-section" style="display:none;">
+            <label for="notes">Notes (optional):</label>
+            <textarea name="notes" rows="3"></textarea>
+            <button type="submit">Book Appointment</button>
+        </div>
+    </form>
+
+    <script>
+        $(document).ready(function(){
+            $('#counselor').change(function(){
+                if($(this).val() !== ""){
+                    $('#calendar-section').slideDown();
+                } else {
+                    $('#calendar-section, #time-slots, #notes-section').slideUp();
+                }
+            });
+
+            $('#appointment-date').change(function(){
+                const counselorId = $('#counselor').val();
+                const date = $(this).val();
+                if(counselorId && date){
+                    $.ajax({
+                        url: "{% url 'get_availability' %}",
+                        data: {
+                            counselor_id: counselorId,
+                            date: date
+                        },
+                        success: function(response){
+                            $('#slots-list').empty();
+                            $('#selected-time').val('');
+                            if(response.time_slots.length > 0){
+                                response.time_slots.forEach(function(time){
+                                    $('#slots-list').append(`<div class="slot">${time}</div>`);
+                                });
+                                $('#time-slots').slideDown();
+                            } else {
+                                $('#slots-list').append("<p>No available slots</p>");
+                                $('#time-slots').slideDown();
+                            }
+                        }
+                    });
+                }
+            });
+
+            $(document).on('click', '.slot', function(){
+                $('.slot').removeClass('selected');
+                $(this).addClass('selected');
+                $('#selected-time').val($(this).text());
+                $('#notes-section').slideDown();
+            });
+        });
+    </script>
+
+</body>
+
+</html>

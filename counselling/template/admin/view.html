@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .table-container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 5px;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn a {
+            color: white;
+            text-decoration: none;
+            display: block;
+        }
+
+        .btn a:hover {
+            text-decoration: none;
+        }
+
+        @media screen and (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 10px;
+            }
+            .btn {
+                padding: 6px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+
+    <h2>All Counselor Availabilities</h2>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Counselor</th>
+                    <th>Day</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Edit Availability</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for availability in availability_list %}
+                <tr>
+                    <td>{{ availability.counselor.username }}</td>
+                    <td>{{ availability.date }}</td>
+                    <td>{{ availability.start_time }}</td>
+                    <td>{{ availability.end_time }}</td>
+                    <td>
+                        <a href="{% url 'edit_availability' availability.counselor.id availability.id %}" class="btn btn-primary">Edit</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'delete_availability' availability.id %}" onclick="return confirm('Are you sure you want to delete this availability?');" class="btn btn-danger">Delete</a>
+                    </td>                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

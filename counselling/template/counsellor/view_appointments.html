@@ -1,0 +1,173 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .table-container {
+        max-width: 1000px;
+        margin: auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 8px;
+        overflow: hidden;
+        background: white;
+    }
+
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    th {
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+
+    .status {
+        font-weight: bold;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .status.pending {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .status.confirmed {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .status.cancelled {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 6px 10px;
+        font-size: 14px;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        border: none;
+        margin: 3px;
+        transition: 0.3s;
+    }
+
+    .btn-approve {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .btn-approve:hover {
+        background-color: #218838;
+    }
+
+    .btn-cancel {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-cancel:hover {
+        background-color: #c82333;
+    }
+
+    @media screen and (max-width: 768px) {
+        table {
+            font-size: 14px;
+        }
+        th, td {
+            padding: 10px;
+        }
+        .btn {
+            font-size: 12px;
+            padding: 4px 8px;
+        }
+    }
+</style>
+
+<h1>My Appointments</h1>
+
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                {% if user_role == 'counselor' %}
+                    <th>Student</th>
+                {% else %}
+                    <th>Counselor</th>
+                {% endif %}
+                <th>Date</th>
+                <th>Time</th>
+                <th>Notes</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for appointment in appointments %}
+            <tr>
+                {% if user_role == 'counselor' %}
+                    <td>{{ appointment.user.username }}</td>
+                {% else %}
+                    <td>{{ appointment.counselor.username }}</td>
+                {% endif %}
+                <td>{{ appointment.date }}</td>
+                <td>{{ appointment.time|time:"h:i A" }}</td>
+                <td>{{ appointment.notes }}</td>
+                <td>
+                    <span class="status {% if appointment.status == 'Pending' %}pending{% elif appointment.status == 'Confirmed' %}confirmed{% elif appointment.status == 'Cancelled' %}cancelled{% endif %}">
+                        {{ appointment.status }}
+                    </span>
+                </td>
+                <td>
+                   
+                        <a href="{% url 'approve_appointment' appointment.id %}" class="btn btn-approve">Approve</a>
+                        <a href="{% url 'cancel_appointment' appointment.id %}" class="btn btn-cancel">Cancel</a>
+                  
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" style="text-align: center; padding: 15px;">No appointments found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Mental Health & Counselling Portal</title>
+    <meta name="description" content="A portal dedicated to mental health support and counselling services.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700">
+    <link rel="stylesheet" href="static/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/assets/css/style.css">
+    <link rel="stylesheet" href="static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Chatbot icon styling */
+        /* Consistent font across the site */
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #f7f9fc;
+    color: #333;
+}
+
+.nav-link {
+    margin-right: 20px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.nav-link:hover {
+    color: #7C3AED;
+}
+
+</style>
+</head>
+<body>
+       <nav style="background-color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center;">
+    <div style="font-size: 1.5rem; font-weight: 700; color: #7C3AED; font-family: 'Open Sans', sans-serif;">
+        MentalCare
+    </div>
+    <div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+            <a href="{% url 'booking' %}" class="nav-link">Book</a>
+            <a href="{% url 'chatbot_page' %}" class="nav-link">Chat Bot</a>
+            <a href="{% url 'history' %}" class="nav-link">History</a>
+            <a href="{% url 'submit_feedback' %}" class="nav-link">Submit Feedback</a>
+            <a href="{% url 'logout' %}" class="login-btn">Logout</a>
+        {% else %}
+            <a href="{% url 'login' %}" class="login-btn">Login</a>
+        {% endif %}
+    </div>
+</nav>
+</body>
+</html>
